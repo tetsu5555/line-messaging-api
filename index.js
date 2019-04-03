@@ -40,7 +40,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
     let userIds = [];
 
     const reply = [
-        "quickReply": {
+        {
             "items": [
                 {
                     "type": "action",
