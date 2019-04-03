@@ -41,22 +41,8 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 
     const reply = [
         {
-            "items": [
-                {
-                    "type": "action",
-                    "action": {
-                        "type": "cameraRoll",
-                        "label": "Send photo"
-                    }
-                },
-                {
-                    "type": "action",
-                    "action": {
-                        "type": "camera",
-                        "label": "Open camera"
-                    }
-                }
-            ]
+            "type": "text",
+            "text": "Hello, world"
         }
     ]
 
