@@ -80,36 +80,36 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
         //         ]
         //     }
         // }
-        {
-            "type": "template",
-            "altText": "this is a confirm template",
-            "template": {
-                "type": "confirm",
-                "text": "Are you sure?",
-                "actions": [
-                    {
-                        "type": "message",
-                        "label": "Yes",
-                        "text": "yes"
-                    },
-                    {
-                        "type": "message",
-                        "label": "No",
-                        "text": "no"
-                    }
-                ]
-            }
-        }
         // {
-        //     "type": "button",
-        //     "action": {
-        //         "type": "uri",
-        //         "label": "Tap me",
-        //         "uri": "https://example.com"
-        //     },
-        //     "style": "primary",
-        //     "color": "#0000ff"
+        //     "type": "template",
+        //     "altText": "this is a confirm template",
+        //     "template": {
+        //         "type": "confirm",
+        //         "text": "Are you sure?",
+        //         "actions": [
+        //             {
+        //                 "type": "message",
+        //                 "label": "Yes",
+        //                 "text": "yes"
+        //             },
+        //             {
+        //                 "type": "message",
+        //                 "label": "No",
+        //                 "text": "no"
+        //             }
+        //         ]
+        //     }
         // }
+        {
+            "type": "button",
+            "action": {
+                "type": "uri",
+                "label": "Tap me",
+                "uri": "https://example.com"
+            },
+            "style": "primary",
+            "color": "#0000ff"
+        }
     ]
 
 
