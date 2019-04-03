@@ -39,6 +39,28 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 
     let userIds = [];
 
+    const reply = [
+        "quickReply": {
+            "items": [
+                {
+                    "type": "action",
+                    "action": {
+                        "type": "cameraRoll",
+                        "label": "Send photo"
+                    }
+                },
+                {
+                    "type": "action",
+                    "action": {
+                        "type": "camera",
+                        "label": "Open camera"
+                    }
+                }
+            ]
+        }
+    ]
+
+
     // イベントオブジェクトを順次処理。
     req.body.events.forEach((event) => {
         axios.get(`/profile/${event.source.userId}`)
@@ -52,8 +74,15 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
                             type: "text",
                             text: `これはこれは、${response.data.displayName}様`
                         }));
-                    } else if (event.message.text == "登録") {
-                        userIds.push(event.source.userId)
+                    } else if (event.message.text == "ボタン") {
+                        bot.replyMessage(event.replyToken, {
+                            type: "text",
+                            text: "ボタン送りたい"
+                        })
+                        axios.post("/message/push", {
+                            to: event.source.userId,
+                            messages: reply
+                        })
                     } else if (event.message.text == "登録一覧") {
                         events_processed.push(bot.replyMessage(event.replyToken, {
                             type: "text",
