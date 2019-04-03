@@ -75,10 +75,10 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
                             text: `これはこれは、${response.data.displayName}様`
                         }));
                     } else if (event.message.text == "ボタン") {
-                        bot.replyMessage(event.replyToken, {
-                            type: "text",
-                            text: "ボタン送りたい"
-                        })
+                        // bot.replyMessage(event.replyToken, {
+                        //     type: "text",
+                        //     text: "ボタン送りたい"
+                        // })
                         axios.post("/message/push", {
                             to: event.source.userId,
                             messages: reply
