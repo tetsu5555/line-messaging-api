@@ -40,9 +40,11 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
 
     // イベントオブジェクトを順次処理。
     req.body.events.forEach((event) => {
+        let userName = ''
         axios.get(`/profile/${event.source.userId}`)
             .then(function (response) {
                 console.log(response)
+                userName = response.diplayName
             })
             .catch(function (error) {
                 console.log('ERROR!! occurred in Backend.')
@@ -56,7 +58,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
                 // replyMessage()で返信し、そのプロミスをevents_processedに追加。
                 events_processed.push(bot.replyMessage(event.replyToken, {
                     type: "text",
-                    text: "これはこれは"
+                    text: `これはこれは、${userName}様`
                 }));
             }
         }
