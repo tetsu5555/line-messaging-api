@@ -101,14 +101,35 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
         //     }
         // }
         {
-            "type": "button",
-            "action": {
-                "type": "uri",
-                "label": "Tap me",
-                "uri": "https://example.com"
-            },
-            "style": "primary",
-            "color": "#0000ff"
+            "type": "carousel",
+            "contents": [
+                {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "First bubble"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "Second bubble"
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     ]
 
