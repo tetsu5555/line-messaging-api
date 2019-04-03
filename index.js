@@ -2,6 +2,7 @@
 // モジュールのインポート
 const server = require("express")();
 const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
+const axiosBase = require('axios'); // axios を require してインスタンスを生成する
 
 // -----------------------------------------------------------------------------
 // パラメータ設定
@@ -9,6 +10,16 @@ const line_config = {
     channelAccessToken: process.env.LINE_ACCESS_TOKEN, // 環境変数からアクセストークンをセットしています
     channelSecret: process.env.LINE_CHANNEL_SECRET // 環境変数からChannel Secretをセットしています
 };
+
+const axios = axiosBase.create({
+    baseURL: 'https://api.line.me/v2/bot', // バックエンドB のURL:port を指定する
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization': `Bearer ${process.env.LINE_ACCESS_TOKEN}`
+    },
+    responseType: 'json'
+});
 
 // -----------------------------------------------------------------------------
 // Webサーバー設定
@@ -26,13 +37,18 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
     // すべてのイベント処理のプロミスを格納する配列。
     let events_processed = [];
     console.log(req)
-    console.log('++++++++++++++++++++++')
 
     // イベントオブジェクトを順次処理。
     req.body.events.forEach((event) => {
-        console.log(event)
-        console.log(typeof event)
-        console.log(event.source.userId)
+        axios.get(`/profile/${event.source.userId}`)
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log('ERROR!! occurred in Backend.')
+            });
+
+
         // この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
         if (event.type == "message" && event.message.type == "text") {
             // ユーザーからのテキストメッセージが「こんにちは」だった場合のみ反応。
